@@ -1,4 +1,10 @@
+import TableComponent from "../components/TableComponent";
+
 const Crypto = () => {
-  return <div>Crypto</div>;
+  return (
+    <section className="w-[80%] flex flex-col mt-16 mb-24 relative">
+      <TableComponent />
+    </section>
+  );
 };
 export default Crypto;
