@@ -5,7 +5,16 @@ import Shimmer from "./Shimmer";
 const Search = () => {
   const [searchText, setSearchText] = useState("");
   const { getCryptoData } = useContext(CryptoContext);
-  const { searchData } = useContext(CryptoContext);
+  const { searchData, setCryptoData, setCoinSearch } =
+    useContext(CryptoContext);
+
+  const handleCoin = (coin) => {
+    setCoinSearch(coin.id);
+    setCryptoData([coin]);
+    setSearchText("");
+    console.log(coin);
+  };
+
   return (
     <>
       <form className="w-96 relative flex items-center font-nunito">
@@ -35,11 +44,17 @@ const Search = () => {
         </button>
       </form>
       {searchText.length > 0 ? (
-        <ul className="w-96 absolute top-11 left-24 overflow-x-hidden  h-96 rounded-lg bg-gray-200 bg-opacity-60 backdrop-blur-md">
+        <ul className="w-96 absolute top-11 left-24 cursor-pointer overflow-x-hidden  h-96 rounded-lg bg-gray-200 bg-opacity-60 backdrop-blur-md">
           {searchData ? (
             searchData.map((coin) => {
               return (
-                <div key={coin.id} className="flex my-2 ml-7">
+                <div
+                  onClick={() => {
+                    handleCoin(coin);
+                  }}
+                  key={coin.id}
+                  className="flex my-2 ml-7"
+                >
                   <img
                     src={coin.thumb}
                     className="rounded-full"
