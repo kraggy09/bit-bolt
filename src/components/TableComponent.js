@@ -3,6 +3,7 @@ import { CryptoContext } from "../context/CryptoContext";
 
 const TableComponent = () => {
   const { cryptoData, currency } = useContext(CryptoContext);
+
   return (
     <div className="mt-9 flex flex-col border border-gray-100">
       {cryptoData ? (
