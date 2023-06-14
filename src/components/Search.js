@@ -5,9 +5,11 @@ import Shimmer from "./Shimmer";
 const Search = () => {
   const [searchText, setSearchText] = useState("");
   const { getCryptoData } = useContext(CryptoContext);
-  const { searchData, setCryptoData, setCoinSearch } =
+  const { searchData, setCryptoData, setSearchData, setCoinSearch } =
     useContext(CryptoContext);
-
+  if (searchText.length <= 0) {
+    setSearchData(null);
+  }
   const handleCoin = (coin) => {
     setCoinSearch(coin.id);
     setCryptoData([coin]);
@@ -44,7 +46,7 @@ const Search = () => {
         </button>
       </form>
       {searchText.length > 0 ? (
-        <ul className="w-96 absolute top-11 left-24 cursor-pointer overflow-x-hidden  h-96 rounded-lg bg-gray-200 bg-opacity-60 backdrop-blur-md">
+        <ul className="w-96 absolute top-11 left-11 cursor-pointer overflow-x-hidden  h-96 rounded-lg bg-gray-200 bg-opacity-60 backdrop-blur-md">
           {searchData ? (
             searchData.map((coin) => {
               return (
@@ -68,7 +70,9 @@ const Search = () => {
             <Shimmer />
           )}
         </ul>
-      ) : null}
+      ) : (
+        <div>No Coins Found</div>
+      )}
     </>
   );
 };

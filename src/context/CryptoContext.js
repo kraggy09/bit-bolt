@@ -47,6 +47,7 @@ export const CryptoProvider = ({ children }) => {
         setCryptoData,
         getCryptoData,
         setCurrency,
+        setSearchData,
       }}
     >
       {children}
