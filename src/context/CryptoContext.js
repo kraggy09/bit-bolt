@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createContext } from "react";
+import { useAsyncError } from "react-router-dom";
 
 export const CryptoContext = createContext({});
 
@@ -9,15 +10,34 @@ export const CryptoProvider = ({ children }) => {
   const [coinSearch, setCoinSearch] = useState("");
   const [currency, setCurrency] = useState("inr");
   const [sortBy, setSortBy] = useState("market_cap_desc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [tPage, setTotalPage] = useState(250);
+  const [perPage, setPerPage] = useState(10);
+  const [coinData, setCoinData] = useState(null);
 
   useEffect(() => {
     fetchData();
-  }, [coinSearch, currency, sortBy]);
+  }, [coinSearch, currency, currentPage, sortBy, perPage]);
+
+  const defaults = () => {
+    setCurrentPage(1);
+    setCoinSearch("");
+  };
 
   async function fetchData() {
     try {
       const response = await fetch(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinSearch}&order=${sortBy}&per_page=10&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d&locale=en`
+        `https://api.coingecko.com/api/v3/coins/list`
+      );
+      const data = await response.json();
+      setTotalPage(data.length);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Handle the error here
+    }
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinSearch}&order=${sortBy}&per_page=${perPage}&page=${currentPage}&sparkline=false&price_change_percentage=1h%2C24h%2C7d&locale=en`
       );
       const data = await response.json();
       console.log(data);
@@ -35,6 +55,18 @@ export const CryptoProvider = ({ children }) => {
     setSearchData(json.coins);
     console.log(searchData);
   }
+  const getCoinData = async (coinid) => {
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/${coinid}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=true&sparkline=false`
+      );
+      const data = await response.json();
+      setCoinData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Handle the error here
+    }
+  };
 
   return (
     <CryptoContext.Provider
@@ -42,12 +74,22 @@ export const CryptoProvider = ({ children }) => {
         cryptoData,
         searchData,
         currency,
+        currentPage,
+        tPage,
+        perPage,
+        coinData,
         setCoinSearch,
         setSortBy,
         setCryptoData,
         getCryptoData,
         setCurrency,
         setSearchData,
+        setCurrentPage,
+        setTotalPage,
+        setPerPage,
+        setCoinData,
+        defaults,
+        getCoinData,
       }}
     >
       {children}
