@@ -63,7 +63,7 @@ export const CryptoProvider = ({ children }) => {
       const data = await response.json();
       setCoinData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.log("Error fetching data:", error);
       // Handle the error here
     }
   };
