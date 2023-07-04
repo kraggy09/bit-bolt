@@ -15,14 +15,18 @@ const Filters = () => {
   const handleSort = (e) => {
     e.preventDefault();
     let val = e.target.value;
-    console.log(val);
+    // console.log(val);
     setSortBy(val);
   };
   return (
-    <div className="border-2 relative top-0 flex items-center justify-around border-gray-100 w-full h-12">
+    <div className="lg:border-2 flex-col lg:flex-row relative top-0 flex items-center justify-around border-gray-100 w-full h-12">
       <Search />
-      <div>
-        <form className="flex relative" onSubmit={handleSubmit}>
+
+      <div className="flex flex-col md:flex-row  mb-5 lg:mb-0  lg:justify-center lg:items-center relative">
+        <form
+          className="flex items-center justify-center "
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="currency" className="font-bold mx-2">
             Currency:
           </label>
@@ -30,34 +34,29 @@ const Filters = () => {
             type="text"
             name="currency"
             ref={currencyRef}
-            className="w-24 border pl-3 focus:border-cyan outline-0 rounded-lg bg-gray-200"
+            className="w-24 border pl-3 focus:border-cyan outline-0 rounded-lg bg-gray-200 mb-2 md:mb-0"
           />
-          <button className="font-bold absolute right-0 ">
+          <button className="font-bold">
             <img src={submit} alt="submit" />
           </button>
         </form>
-      </div>
-      <div className="flex justify-center items-center">
-        <label>
-          <span className="font-bold mr-2">Sort By:</span>
-          <select className="bg-gray-200 px-2" onClick={handleSort}>
-            {/* (market_cap_asc,
-              market_cap_desc,
-              volume_asc,
-              volume_desc,
-              id_asc,
-              id_desc)
-              */}
-            <option value="market_cap_asc">Market Cap Asscending</option>
-            <option value="market_cap_desc">Market Cap Descending</option>
-            <option value="volume_asc">Volume Asscending</option>
-            <option value="volume_desc">Volume Descending</option>
-            <option value="id_asc">ID Asscending</option>
-            <option value="id_desc">ID Descending</option>
-          </select>
-        </label>
+        <div className="lg:ml-10 ">
+          <label>
+            <span className="lg:font-bold text-md lg:text-md mr-2">
+              Sort By:
+            </span>
+            <select className="bg-gray-200 lg:px-2" onClick={handleSort}>
+              <option value="market_cap_desc">Market Cap Descending</option>
+              <option value="market_cap_asc">Market Cap Asscending</option>
+              <option value="volume_asc">Volume Asscending</option>
+              <option value="volume_desc">Volume Descending</option>
+              <option value="id_asc">ID Asscending</option>
+              <option value="id_desc">ID Descending</option>
+            </select>
+          </label>
+        </div>
         <button
-          className="w-[2rem] ml-4 hover:scale-110 transition-all transition-ease"
+          className="w-[2rem] absolute md:relative right-0  ml-4 hover:scale-110 transition-all transition-ease"
           onClick={defaults}
         >
           <svg

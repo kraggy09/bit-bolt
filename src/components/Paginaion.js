@@ -16,7 +16,10 @@ const Pagination = () => {
       }
     };
     return (
-      <form className="flex relative mr-14" onSubmit={handlePerPage}>
+      <form
+        className="flex mb-7 md:mb-0 relative mr-14"
+        onSubmit={handlePerPage}
+      >
         <label htmlFor="page" className="font-bold mx-2">
           PerPage:
         </label>
@@ -47,7 +50,7 @@ const Pagination = () => {
   };
   const multiRight = () => {
     if (currentPage + 3 >= totalPage) {
-      setCurrentPage(totalPage);
+      setCurrentPage(totalPage - 1);
     } else {
       setCurrentPage(currentPage + 3);
     }
@@ -61,14 +64,14 @@ const Pagination = () => {
   };
   const multiLeft = () => {
     if (currentPage - 3 <= 1) {
-      setCurrentPage(1);
+      setCurrentPage(totalPage + 1);
     } else {
       setCurrentPage(currentPage - 2);
     }
   };
   if (cryptoData && cryptoData.length >= perPage) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex flex-col md:flex-row md:justify-center md:items-center">
         <PageFilter />
         <ul className="flex">
           {currentPage > 1 ? (

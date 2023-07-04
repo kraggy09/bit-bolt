@@ -1,12 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Crypto from "./pages/Crypto";
 import Home from "./pages/Home";
-import Trending from "./pages/Trending";
-import Saved from "./pages/Saved";
 import CryptoDetails from "./components/CryptoDetails";
+
+const Trending = lazy(() => import("./pages/Trending"));
+const Saved = lazy(() => import("./pages/Saved"));
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Crypto />,
+        element: (
+          <Suspense>
+            <Crypto />
+          </Suspense>
+        ),
         children: [
           {
             path: ":cryptoId",
@@ -25,7 +30,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/trending",
-        element: <Trending />,
+        element: (
+          <Suspense>
+            {" "}
+            <Trending />
+          </Suspense>
+        ),
         children: [
           {
             path: ":crypotId",
@@ -35,7 +45,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/saved",
-        element: <Saved />,
+        element: (
+          <Suspense>
+            <Saved />
+          </Suspense>
+        ),
         children: [
           {
             path: ":crypotId",

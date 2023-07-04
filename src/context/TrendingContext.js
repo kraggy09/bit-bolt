@@ -11,10 +11,10 @@ export const TrendingProvider = ({ children }) => {
         "https://api.coingecko.com/api/v3/search/trending"
       );
       const data = await response.json();
-      console.log(data.coins);
+      //console.log(data.coins);
       setTrend(data.coins);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

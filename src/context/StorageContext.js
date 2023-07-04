@@ -59,10 +59,10 @@ export const StorageProvider = ({ children }) => {
         )}&order=${sortBy}&per_page=${perPage}&page=${currentPage}&sparkline=false&price_change_percentage=1h%2C24h%2C7d&locale=en`
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setSavedData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
       // Handle the error here
     }
   };

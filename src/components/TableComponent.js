@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CryptoContext } from "../context/CryptoContext";
 import Pagination from "./Paginaion";
 import { Link } from "react-router-dom";
@@ -46,6 +46,28 @@ export const SaveBtn = ({ data }) => {
 
 const TableComponent = () => {
   const { cryptoData, currency } = useContext(CryptoContext);
+  const [coolTime, setCoolTime] = useState(300);
+
+  useEffect(() => {
+    coolTime > 0
+      ? setTimeout(() => setCoolTime(coolTime - 1), 1000)
+      : setCoolTime(0);
+  }, [coolTime]);
+  if (cryptoData?.status?.error_code === 429) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center font-nunito text-red md:text-lg">
+        {coolTime > 0 ? (
+          <span className="border-2 rounded-lg px-6 py-1 border-cyan">
+            Please Try again after {coolTime} secs as it is a limited call API
+          </span>
+        ) : (
+          <span className="border-2 rounded-lg px-6 py-1 border-cyan">
+            Please Refresh the Page
+          </span>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -55,13 +77,15 @@ const TableComponent = () => {
             <thead className=" text-base text-gray-100 border-b border-gray-100">
               <tr>
                 <th className="py-1">Asset</th>
-                <th className="py-1">Name</th>
+                <th className="py-1 md:table-cell hidden">Name</th>
                 <th className="py-1">Price</th>
-                <th className="py-1">Total Volume</th>
-                <th className="py-1">Market Cap Changes</th>
-                <th className="py-1">1H</th>
-                <th className="py-1">24H</th>
-                <th className="py-1">7D</th>
+                <th className="py-1 md:table-cell hidden">Total Volume</th>
+                <th className="py-1 lg:table-cell hidden">
+                  Market Cap Changes
+                </th>
+                <th className="py-1 lg:table-cell hidden">1H</th>
+                <th className="py-1 lg:table-cell hidden">24H</th>
+                <th className="py-1 lg:table-cell hidden">7D</th>
               </tr>
             </thead>
             <tbody>
@@ -75,7 +99,7 @@ const TableComponent = () => {
                       <SaveBtn data={data} />
                       <img
                         src={data.image}
-                        className="w-[2.2rem] rounded-full  h-[2.2rem] mx-2"
+                        className="w-[2.2rem] rounded-full   h-[2.2rem] mx-2"
                         alt={data.name}
                       />
                       <span>
@@ -84,23 +108,25 @@ const TableComponent = () => {
                         </Link>
                       </span>
                     </td>
-                    <td className="py-3 capitalize">
+                    <td className="py-3 capitalize md:table-cell hidden">
                       <Link to={`/${data.id}`} className="cursor-pointer">
                         {data.name}
                       </Link>
                     </td>
-                    <td className="py-3">
+                    <td className="py-3 ">
                       {new Intl.NumberFormat("en-IN", {
                         style: "currency",
                         currency: currency,
                       }).format(data.current_price)}
                     </td>
-                    <td className="py-3">{data.total_volume}</td>
+                    <td className="py-3 md:table-cell hidden">
+                      {data.total_volume}
+                    </td>
                     <td
                       className={
                         data.market_cap_change_percentage_24h > 0
-                          ? "text-green py-3"
-                          : "text-red py-3"
+                          ? "text-green lg:table-cell hidden py-3"
+                          : "text-red lg:table-cell hidden py-3"
                       }
                     >
                       {data.market_cap_change_percentage_24h}%
@@ -108,8 +134,8 @@ const TableComponent = () => {
                     <td
                       className={
                         data.price_change_percentage_1h_in_currency > 0
-                          ? "text-green py-3"
-                          : "text-red py-3"
+                          ? "text-green lg:table-cell hidden py-3"
+                          : "text-red lg:table-cell hidden py-3"
                       }
                     >
                       {Number(
@@ -119,8 +145,8 @@ const TableComponent = () => {
                     <td
                       className={
                         data.price_change_percentage_24h_in_currency > 0
-                          ? "text-green py-3"
-                          : "text-red py-3"
+                          ? "text-green lg:table-cell hidden py-3"
+                          : "text-red lg:table-cell hidden py-3"
                       }
                     >
                       {Number(
@@ -130,8 +156,8 @@ const TableComponent = () => {
                     <td
                       className={
                         data.price_change_percentage_7d_in_currency > 0
-                          ? "text-green py-3"
-                          : "text-red py-3"
+                          ? "text-green lg:table-cell hidden py-3"
+                          : "text-red lg:table-cell hidden py-3"
                       }
                     >
                       {Number(
@@ -153,7 +179,7 @@ const TableComponent = () => {
           </div>
         )}
       </div>
-      <div className="flex justify-end mt-7">
+      <div className="flex  justify-end mt-7">
         <Pagination />
       </div>
     </div>

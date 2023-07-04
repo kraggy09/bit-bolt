@@ -48,23 +48,23 @@ const CryptoDetails = () => {
       onClick={closeDetails}
     >
       <div
-        className="w-[65%] h-[80%] bg-gray-300 bg-opacity-75 text-white relative rounded-xl"
+        className="w-full md:w-[90%] lg:w-[65%] h-[90%] md:h-[80%] bg-gray-300 bg-opacity-75 text-white relative rounded-xl"
         onClick={(e) => e.stopPropagation()}
       >
         {coinData ? (
-          <div className="flex items-center justify-between h-full w-full p-4">
-            <div className="flex flex-col w-[45%] h-full pr-2">
+          <div className="flex md:items-center flex-col md:flex-row scrollbar-thin scrollbar-thumb-gray-100 scrollbar-track-gray-200 overflow-x-hidden md:justify-between h-full w-full p-4">
+            <div className="flex flex-col w-full lg:w-[45%] h-full pr-2">
               <div className="flex  w-full items-center">
                 <img
                   className="w-[3rem] h-[3rem mx-1.5]"
-                  src={coinData.image.large}
-                  alt={coinData.id}
+                  src={coinData?.image?.large}
+                  alt={coinData?.id}
                 />
                 <h1 className="text-xl capitalize font-medium mx-1.5">
-                  {coinData.name}
+                  {coinData?.name}
                 </h1>
                 <span className="px-1.5 rounded uppercase py-1.5 ml-2 bg-cyan text-cyan bg-opacity-30">
-                  {coinData.symbol}
+                  {coinData?.symbol}
                 </span>
               </div>
               <div className="flex w-full mt-6">
@@ -79,19 +79,19 @@ const CryptoDetails = () => {
                         style: "currency",
                         currency: currency,
                         maximumSignificantDigits: 5,
-                      }).format(coinData.market_data.current_price[currency])}
+                      }).format(coinData?.market_data?.current_price[currency])}
                     </h2>
                   </div>
                   <div
-                    className={`flex items-center px-2 ml-2 font-medium  h-5  text-sm rounded uppercase bg-opacity-25 ${
-                      coinData.market_data.price_change_percentage_24h > 0
+                    className={`flex ml-56 items-center px-2 md:ml-2 font-medium  h-5  text-sm rounded uppercase bg-opacity-25 ${
+                      coinData?.market_data?.price_change_percentage_24h > 0
                         ? "bg-green text-green"
                         : "bg-red text-red"
                     }`}
                   >
                     <span>
                       {Number(
-                        coinData.market_data.price_change_percentage_24h
+                        coinData?.market_data?.price_change_percentage_24h
                       ).toFixed(2)}
                       %
                     </span>
@@ -101,7 +101,7 @@ const CryptoDetails = () => {
                       viewBox="0 0 14 14"
                       xmlns="http://www.w3.org/2000/svg"
                       className={`${
-                        coinData.market_data.price_change_percentage_24h > 0
+                        coinData?.market_data?.price_change_percentage_24h > 0
                           ? "fill-green rotate-180"
                           : "fill-red"
                       } ml-2`}
@@ -113,7 +113,7 @@ const CryptoDetails = () => {
               </div>
 
               <div className="flex w-full mt-3">
-                <div className="flex justify-between w-full">
+                <div className="flex flex-col lg:flex-row md:justify-between w-full">
                   <div className="flex flex-col">
                     <span className="text-sm capitalize text-gray-100 ">
                       Market Cap
@@ -123,7 +123,7 @@ const CryptoDetails = () => {
                       {new Intl.NumberFormat("en-IN", {
                         style: "currency",
                         currency: currency,
-                      }).format(coinData.market_data.market_cap[currency])}
+                      }).format(coinData?.market_data?.market_cap[currency])}
                     </h2>
                   </div>
 
@@ -140,7 +140,7 @@ const CryptoDetails = () => {
                         notation: "compact",
                         minimumFractionDigits: 0,
                       }).format(
-                        coinData.market_data.fully_diluted_valuation[currency]
+                        coinData?.market_data?.fully_diluted_valuation[currency]
                       )}
                     </h2>
                   </div>
@@ -155,20 +155,20 @@ const CryptoDetails = () => {
                   {new Intl.NumberFormat("en-IN", {
                     style: "currency",
                     currency: currency,
-                  }).format(coinData.market_data.total_volume[currency])}
+                  }).format(coinData?.market_data?.total_volume[currency])}
                 </h2>
               </div>
 
               <div className="flex w-full mt-3 justify-between">
                 <HighLowIndicator
-                  currentPrice={coinData.market_data.current_price[currency]}
-                  low={coinData.market_data.low_24h[currency]}
-                  high={coinData.market_data.high_24h[currency]}
+                  currentPrice={coinData?.market_data?.current_price[currency]}
+                  low={coinData?.market_data?.low_24h[currency]}
+                  high={coinData?.market_data?.high_24h[currency]}
                 />
               </div>
 
               <div className="flex w-full mt-3">
-                <div className="flex justify-between w-full">
+                <div className="flex flex-col justify-between w-full">
                   <div className="flex flex-col">
                     <span className="text-sm capitalize text-gray-100 ">
                       Low 24H
@@ -179,7 +179,7 @@ const CryptoDetails = () => {
                         style: "currency",
                         currency: currency,
                         maximumFractionDigits: 5,
-                      }).format(coinData.market_data.low_24h[currency])}
+                      }).format(coinData?.market_data?.low_24h[currency])}
                     </h2>
                   </div>
 
@@ -193,7 +193,7 @@ const CryptoDetails = () => {
                         style: "currency",
                         currency: currency,
                         maximumFractionDigits: 5,
-                      }).format(coinData.market_data.high_24h[currency])}
+                      }).format(coinData?.market_data?.high_24h[currency])}
                     </h2>
                   </div>
                 </div>
@@ -211,7 +211,7 @@ const CryptoDetails = () => {
                         style: "currency",
                         currency: currency,
                         minimumFractionDigits: 0,
-                      }).format(coinData.market_data.max_supply)}
+                      }).format(coinData?.market_data?.max_supply)}
                     </h2>
                   </div>
 
@@ -225,51 +225,50 @@ const CryptoDetails = () => {
                         style: "currency",
                         currency: currency,
                         minimumFractionDigits: 0,
-                      }).format(coinData.market_data.circulating_supply)}
+                      }).format(coinData?.market_data?.circulating_supply)}
                     </h2>
                   </div>
                 </div>
               </div>
 
-              <div className="flex w-full mt-3 justify-between">
+              <div className="flex flex-col md:flex-row w-full mt-3 justify-between">
                 <div className="flex flex-col">
                   <a
                     rel="noreferrer"
                     target="_blank"
                     className="bg-gray-200 text-gray-100 text-sm px-2 mt-1 rounded"
-                    href={coinData.links.homepage[0]}
+                    href={coinData?.links?.homepage[0]}
                   >
-                    {coinData.links.homepage[0]}
+                    {coinData?.links?.homepage[0]}
                   </a>
 
                   <a
                     rel="noreferrer"
                     target="_blank"
                     className="bg-gray-200 text-gray-100 text-sm px-2 mt-1 rounded"
-                    href={coinData.links.blockchain_site[0].substring(0, 30)}
+                    href={coinData?.links?.blockchain_site[0].substring(0, 30)}
                   >
-                    {coinData.links.blockchain_site[0].substring(0, 30)}
+                    {coinData?.links?.blockchain_site[0].substring(0, 30)}
                   </a>
                   <a
                     rel="noreferrer"
                     target="_blank"
                     className="bg-gray-200 text-gray-100 text-sm px-2 mt-1 rounded"
-                    href={coinData.links.blockchain_site[1]}
+                    href={coinData?.links?.blockchain_site[1]}
                   >
-                    {coinData.links.blockchain_site[1].substring(0, 30)}
+                    {coinData?.links?.blockchain_site[1].substring(0, 30)}
                   </a>
                 </div>
                 <div className="flex flex-col content-start">
                   <span>Sentiments</span>
                   <div className="flex justify-between w-full">
-                    <div className="flex flex-col"></div>
                     <div
-                      className={`flex items-center px-2 ml-2 font-medium  h-5  text-sm rounded uppercase my-1 bg-opacity-25 bg-green text-green`}
+                      className={`flex w-full md:w-24 items-center px-2 ml-2 font-medium  h-5  text-sm rounded uppercase my-1 bg-opacity-25 bg-green text-green`}
                     >
                       <span>
-                        {Number(coinData.sentiment_votes_up_percentage).toFixed(
-                          2
-                        )}
+                        {Number(
+                          coinData?.sentiment_votes_up_percentage
+                        ).toFixed(2)}
                         %
                       </span>
                       <svg
@@ -284,13 +283,12 @@ const CryptoDetails = () => {
                     </div>
                   </div>
                   <div className="flex justify-between w-full">
-                    <div className="flex flex-col"></div>
                     <div
-                      className={`flex items-center px-2 ml-2 font-medium  h-5  text-sm rounded uppercase my-1 bg-opacity-25 bg-red text-red`}
+                      className={`flex w-full md:w-24 items-center px-2 ml-2 font-medium  h-5  text-sm rounded uppercase my-1 bg-opacity-25 bg-red text-red`}
                     >
                       <span>
                         {Number(
-                          coinData.sentiment_votes_down_percentage
+                          coinData?.sentiment_votes_down_percentage
                         ).toFixed(2)}
                         %
                       </span>
@@ -309,36 +307,36 @@ const CryptoDetails = () => {
               </div>
             </div>
 
-            <div className="flex flex-col  w-[55%] h-full pl-2 ">
-              <Chart id={coinData.id} />
+            <div className="flex flex-col w-[90%]  md:w-[55%] h-full pl-2 ">
+              <Chart id={coinData?.id} />
               <div className="flex flex-col mt-6 ml-5">
                 <h3 className="text-[1.2rem] text-gray-100 px-1 py-0.5">
                   Market Cap Rank:
                   <span className="text-white text-[1.2rem]">
-                    {coinData.market_cap_rank}
+                    {coinData?.market_cap_rank}
                   </span>
                 </h3>
                 <h3 className="text-[1.2rem] text-gray-100 py-0.5 px-1">
                   Coin Gecko Rank:
                   <span className="text-white text-[1.2rem]">
-                    {coinData.coingecko_rank}
+                    {coinData?.coingecko_rank}
                   </span>
                 </h3>
                 <h3 className="text-[1.2rem] text-gray-100 px-1 py-0.5">
                   Coin Gecko Score:
                   <span className="text-white text-[1.2rem]">
-                    {coinData.coingecko_score}
+                    {coinData?.coingecko_score}
                   </span>
                 </h3>
               </div>
             </div>
-            <div className="absolute flex items-center bottom-8 right-8">
-              {coinData.links.repos_url.github[0] && (
+            <div className="md:absolute w-full  justify-end flex items-center bottom-8 right-8">
+              {coinData?.links?.repos_url.github[0] && (
                 <a
                   className="text-lg px-1"
                   target="_blank"
                   rel={"noreferrer"}
-                  href={coinData.links.repos_url.github[0]}
+                  href={coinData?.links?.repos_url.github[0]}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -362,12 +360,12 @@ const CryptoDetails = () => {
                 </a>
               )}
 
-              {coinData.links.twitter_screen_name && (
+              {coinData?.links?.twitter_screen_name && (
                 <a
                   className="text-lg px-1"
                   target="_blank"
                   rel={"noreferrer"}
-                  href={`https://www.twitter.com/${coinData.links.twitter_screen_name}`}
+                  href={`https://www.twitter.com/${coinData?.links?.twitter_screen_name}`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -389,12 +387,12 @@ const CryptoDetails = () => {
                 </a>
               )}
 
-              {coinData.links.subreddit_url && (
+              {coinData?.links?.subreddit_url && (
                 <a
                   className="text-lg px-1"
                   target="_blank"
                   rel={"noreferrer"}
-                  href={coinData.links.subreddit_url}
+                  href={coinData?.links?.subreddit_url}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -418,12 +416,12 @@ const CryptoDetails = () => {
                 </a>
               )}
 
-              {coinData.links.facebook_username && (
+              {coinData?.links?.facebook_username && (
                 <a
                   className="text-lg px-1"
                   target="_blank"
                   rel={"noreferrer"}
-                  href={`https://www.facebook.com/${coinData.links.facebook_username}`}
+                  href={`https://www.facebook.com/${coinData?.links?.facebook_username}`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -25,25 +25,20 @@ export const CryptoProvider = ({ children }) => {
   };
 
   async function fetchData() {
-    try {
-      const response = await fetch(
-        `https://api.coingecko.com/api/v3/coins/list`
-      );
-      const data = await response.json();
-      setTotalPage(data.length);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      // Handle the error here
-    }
+    setTotalPage(13220);
+
     try {
       const response = await fetch(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinSearch}&order=${sortBy}&per_page=${perPage}&page=${currentPage}&sparkline=false&price_change_percentage=1h%2C24h%2C7d&locale=en`
       );
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       setCryptoData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      /*console.log(
+        "Please try after sometime as the API is called maximum time"
+      );
+      */
       // Handle the error here
     }
   }
@@ -53,7 +48,7 @@ export const CryptoProvider = ({ children }) => {
     );
     const json = await data.json();
     setSearchData(json.coins);
-    console.log(searchData);
+    //console.log(searchData);
   }
   const getCoinData = async (coinid) => {
     try {
@@ -63,7 +58,7 @@ export const CryptoProvider = ({ children }) => {
       const data = await response.json();
       setCoinData(data);
     } catch (error) {
-      console.log("Error fetching data:", error);
+      //console.log("Error fetching data:", error);
       // Handle the error here
     }
   };

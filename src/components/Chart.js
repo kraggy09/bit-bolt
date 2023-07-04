@@ -66,17 +66,17 @@ const Chart = ({ id }) => {
         );
         const data = await response.json();
 
-        console.log(data);
+        // console.log(data);
         let dataChange = data[type].map((item) => {
           return {
             date: new Date(item[0]).toLocaleDateString(),
             [type]: item[1],
           };
         });
-        console.log(dataChange);
+        // console.log(dataChange);
         setChartData(dataChange);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
         // Handle the error here
       }
     };
