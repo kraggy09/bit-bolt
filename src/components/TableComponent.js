@@ -104,7 +104,7 @@ const TableComponent = () => {
                       />
                       <span>
                         <Link to={`/${data.id}`} className="cursor-pointer">
-                          {data.symbol}
+                          {data.symbol.substring(0, 6)}
                         </Link>
                       </span>
                     </td>
