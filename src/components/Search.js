@@ -22,6 +22,7 @@ const Search = () => {
   const handleCoin = (coin) => {
     setCoinSearch(coin.id);
     setCryptoData([coin]);
+    setSearchText("");
   };
 
   const handleSubmit = (e) => {
