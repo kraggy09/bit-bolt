@@ -33,6 +33,7 @@ const Filters = () => {
           <input
             type="text"
             name="currency"
+            placeHolder="inr"
             ref={currencyRef}
             className="w-24 border pl-3 focus:border-cyan outline-0 rounded-lg bg-gray-200 mb-2 md:mb-0"
           />
