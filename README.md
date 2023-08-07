@@ -10,9 +10,14 @@ This is a Crypto Tracker app.
 5)  Search for your favourite coins
 6)  Data is taken from CoinGecko API
 
-# 
-# 
-# 
+
+👉 Live Demo: [https://bitbolt.netlify.app]
+
+# Build with:
+» TailwindCSS
+» React JS
+
+ # Screenshot
 
 
 
